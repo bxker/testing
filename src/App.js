@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import AnswerQuestions from "./components/AnswerQuestions";
+import AskQuestions from "./components/AskQuestions";
+import StudentQuestions from "./components/StudentQuestions";
+
+function App(props) {
+  const [questions, setQuestions] = React.useState([]);
+
+  function removeQuestion() {
+    let arr = questions.slice();
+    arr.shift();
+    setQuestions(arr);
+  }
+
+  function addQuestion(question) {
+    setQuestions([...questions, question]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AskQuestions addQuestion={addQuestion} />
+      <StudentQuestions questions={questions} />
+      <AnswerQuestions removeQuestion={removeQuestion} />
+    </>
   );
 }
 
